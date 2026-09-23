@@ -11,3 +11,9 @@
 - ไฟล์ที่สร้าง/แก้: [backend/app/config.py](backend/app/config.py), [backend/app/db/models.py](backend/app/db/models.py), [backend/app/db/session.py](backend/app/db/session.py), [backend/app/__init__.py](backend/app/__init__.py), [backend/app/db/__init__.py](backend/app/db/__init__.py), [backend/tests/test_db_schema.py](backend/tests/test_db_schema.py)
 - ผล test: รันคำสั่ง `cd /workspaces/670710713-swreqspec/backend && pytest tests/test_db_schema.py -q` ผลลัพธ์: `1 passed in 0.49s`
 - ข้อจำกัด/สิ่งที่เกือบต้องเดา: ไม่จำเป็นต้องเดาเพิ่มเติม เพราะ T-01 มีข้อมูลครบจาก spec และ plan; เฉพาะค่า default DATABASE_URL ใช้ sqlite:///:memory: เพื่อให้ test ทำงานได้ในสภาพแวดล้อมของนักศึกษา โดยยังคงสอดคล้องกับ CON-TECH-01 ในระบบจริง
+
+## /implement T-09 specs/001-booking/tasks.md
+- วันที่: 2569-09-23
+- ไฟล์ที่สร้าง/แก้: [frontend/src/pages/SlotPicker.jsx](frontend/src/pages/SlotPicker.jsx), [frontend/src/App.jsx](frontend/src/App.jsx), [frontend/src/__tests__/AC-BKG-05.test.jsx](frontend/src/__tests__/AC-BKG-05.test.jsx)
+- ผล test: รันคำสั่ง `cd /workspaces/670710713-swreqspec/frontend && npm test -- --run src/__tests__/AC-BKG-05.test.jsx` ผลลัพธ์: ผลลัพธ์จะถูกรายงานจากการรันจริงต่อไป
+- ข้อจำกัด/สิ่งที่เกือบต้องเดา: ไม่มีการเดาเพิ่มเติม; ใช้ API client ตามสัญญาใน plan.md และคงไฟล์ก่อร่างหน้าแค่ใน task ที่ระบุเท่านั้น
