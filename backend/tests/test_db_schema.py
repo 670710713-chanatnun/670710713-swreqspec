@@ -14,7 +14,7 @@ def test_db_schema_creates_required_tables_and_fields():
 
     assert "slots" in tables
     assert "bookings" in tables
-    assert "audit_logs" in tables
+    assert "audit_logs" in tables 
 
     slots_columns = {col["name"] for col in inspector.get_columns("slots")}
     bookings_columns = {col["name"] for col in inspector.get_columns("bookings")}
