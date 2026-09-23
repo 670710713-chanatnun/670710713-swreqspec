@@ -5,3 +5,9 @@
 - ผลลัพธ์: สร้างไฟล์ tasks.md สำหรับ SPEC-BKG-001 โดยแยกงานเป็น 12 task และมี 2 task ที่รอ Q-02
 - สรุป: task ที่ยากที่สุดคือ T-05 (วิเคราะห์ช่วงว่างและข้อผิดพลาด full-slot) เพราะต้องอ้างอิงเวลา/แพ็กเกจ/ปริมาณคิวพร้อมกัน และมีความเสี่ยงต่อการจองซ้อน; AC ที่ทดสอบยากที่สุดคือ AC-BKG-05 เพราะต้องทดสอบพร้อมกัน 200 คนและวัด p95 ในสภาพแวดล้อมนักศึกษา โดยให้ใช้โหลดย่อส่วนด้วย locust หรือ pytest-xdist และเตรียมข้อมูลคิวว่างล่วงหน้าเพื่อให้ผลเชื่อถือได้
 - หมายเหตุ: status ของ spec เป็น Draft v2 จึงใช้ได้ตามแนวทาง /tasks โดยไม่มีการถามซ้ำเรื่อง clarify
+
+## /implement T-01 specs/001-booking/tasks.md
+- วันที่: 2569-09-23
+- ไฟล์ที่สร้าง/แก้: [backend/app/config.py](backend/app/config.py), [backend/app/db/models.py](backend/app/db/models.py), [backend/app/db/session.py](backend/app/db/session.py), [backend/app/__init__.py](backend/app/__init__.py), [backend/app/db/__init__.py](backend/app/db/__init__.py), [backend/tests/test_db_schema.py](backend/tests/test_db_schema.py)
+- ผล test: รันคำสั่ง `cd /workspaces/670710713-swreqspec/backend && pytest tests/test_db_schema.py -q` ผลลัพธ์: `1 passed in 0.49s`
+- ข้อจำกัด/สิ่งที่เกือบต้องเดา: ไม่จำเป็นต้องเดาเพิ่มเติม เพราะ T-01 มีข้อมูลครบจาก spec และ plan; เฉพาะค่า default DATABASE_URL ใช้ sqlite:///:memory: เพื่อให้ test ทำงานได้ในสภาพแวดล้อมของนักศึกษา โดยยังคงสอดคล้องกับ CON-TECH-01 ในระบบจริง
