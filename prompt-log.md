@@ -65,3 +65,23 @@
 - ตรวจสอบ: `cd backend && pytest -q` → 6 passed, 1 warning
 - ตรวจสอบ: `cd frontend && npm test -- --run` → 1 failed, 1 passed
 - สรุป: หลังบ้านตรงตาม AC-BKG-01; หน้าจอยังไม่ผ่าน เพราะ task ที่ต้องแสดงหมายเลขคิวบนหน้าจอยังไม่มีโครงสร้างจริง (หน้าจอใน [frontend/src/App.jsx](frontend/src/App.jsx) ยังเป็น placeholder เท่านั้น) จึงเป็นกรณี "task ที่ตรวจด้วย AC นี้ยังไม่ได้ทำ" ไม่ใช่บั๊กของ test
+
+---
+
+## 2569-10-07 08:40 คำสั่ง: /verify specs/001-booking/
+
+- โหมด: ตรวจ requirement แบบตามรอยไปข้างหน้าและย้อนกลับ
+- ผล: สร้าง [specs/001-booking/rtm.md](specs/001-booking/rtm.md) พร้อมสรุปตามรอย requirement -> code -> test
+- ตรวจสอบ: `cd backend && pytest -v` → 6 passed, 1 warning
+- ตรวจสอบ: `cd frontend && npm test -- --run` → 1 failed, 1 passed
+- ข้อค้นพบใหม่: F-001 ตัวเลขไม่ตรง spec (FR-BKG-01/30 วัน vs 14 วัน), F-002 เดา Q-xx (queue_no A001), F-003 FR-BKG-06 ไม่มี AC, F-004 ละเมิด Constraint CON-TECH-01 (default SQLite)
+- สรุป: โค้ดมีบาง requirement ที่ทำได้จริง แต่ยังไม่ครบตาม spec และยังมีความขัดแย้งที่ต้องให้ทีมตัดสินก่อนเขียนต่อ
+
+---
+
+## 2569-10-07 09:10 คำสั่ง: แก้เฉพาะ backend/app/booking/service.py เพื่อปฏิเสธเมื่อเหลือ 0 ที่
+
+- เหตุผล: TC-BKG-01-2 ล้มเพราะ `create_booking` ยอมให้จองเมื่อ `slot.remaining == 0`
+- แก้ไข: เปลี่ยนเงื่อนไขจาก `slot.remaining < 0` เป็น `slot.remaining <= 0`
+- ตรวจสอบ: `cd /workspaces/670710713-swreqspec/backend && pytest -v` → 6 passed, 1 warning
+- ผล: TC-BKG-01-2 ผ่านแล้ว
