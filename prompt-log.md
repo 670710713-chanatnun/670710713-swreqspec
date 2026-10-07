@@ -54,3 +54,14 @@
 - TC ID ที่เสนอ: TC-BKG-01-1, TC-BKG-01-2, TC-BKG-01-3
 - รายงาน: ยังไม่เขียนโค้ด test เพราะแถวยังไม่ได้รับการตรวจและเปลี่ยนสถานะเป็น "ใช้ได้" ก่อน
 - ต้องถาม/ตรวจต่อ: ทีมตรวจแถวในตารางก่อน แล้วแก้สถานะเป็น "ใช้ได้" จากนั้นสั่ง /testcases อีกครั้ง
+
+---
+
+## 2569-10-07 08:25 คำสั่ง: /testcases AC-BKG-01 specs/001-booking/
+
+- โหมด: เขียน test (แถว AC-BKG-01 อยู่ในสถานะ "ใช้ได้")
+- ผล: เขียน test backend 3 ตัวใน [backend/tests/test_AC_BKG_01.py](backend/tests/test_AC_BKG_01.py) และ test หน้าจอ 1 ตัวใน [frontend/src/__tests__/AC-BKG-01.test.jsx](frontend/src/__tests__/AC-BKG-01.test.jsx)
+- TC ID ที่ใช้งาน: TC-BKG-01-1, TC-BKG-01-2, TC-BKG-01-3
+- ตรวจสอบ: `cd backend && pytest -q` → 6 passed, 1 warning
+- ตรวจสอบ: `cd frontend && npm test -- --run` → 1 failed, 1 passed
+- สรุป: หลังบ้านตรงตาม AC-BKG-01; หน้าจอยังไม่ผ่าน เพราะ task ที่ต้องแสดงหมายเลขคิวบนหน้าจอยังไม่มีโครงสร้างจริง (หน้าจอใน [frontend/src/App.jsx](frontend/src/App.jsx) ยังเป็น placeholder เท่านั้น) จึงเป็นกรณี "task ที่ตรวจด้วย AC นี้ยังไม่ได้ทำ" ไม่ใช่บั๊กของ test
