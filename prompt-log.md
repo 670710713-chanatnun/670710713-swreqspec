@@ -1,19 +1,46 @@
-# Prompt Log
+# Prompt log
 
-## /tasks specs/001-booking/spec.md
-- วันที่: 2569-09-23
-- ผลลัพธ์: สร้างไฟล์ tasks.md สำหรับ SPEC-BKG-001 โดยแยกงานเป็น 12 task และมี 2 task ที่รอ Q-02
-- สรุป: task ที่ยากที่สุดคือ T-05 (วิเคราะห์ช่วงว่างและข้อผิดพลาด full-slot) เพราะต้องอ้างอิงเวลา/แพ็กเกจ/ปริมาณคิวพร้อมกัน และมีความเสี่ยงต่อการจองซ้อน; AC ที่ทดสอบยากที่สุดคือ AC-BKG-05 เพราะต้องทดสอบพร้อมกัน 200 คนและวัด p95 ในสภาพแวดล้อมนักศึกษา โดยให้ใช้โหลดย่อส่วนด้วย locust หรือ pytest-xdist และเตรียมข้อมูลคิวว่างล่วงหน้าเพื่อให้ผลเชื่อถือได้
-- หมายเหตุ: status ของ spec เป็น Draft v2 จึงใช้ได้ตามแนวทาง /tasks โดยไม่มีการถามซ้ำเรื่อง clarify
+บันทึกทุกครั้งที่ใช้ AI กับ repo นี้ เขียนต่อท้ายเรื่อย ๆ ไม่ลบของเก่า
 
-## /implement T-01 specs/001-booking/tasks.md
-- วันที่: 2569-09-23
-- ไฟล์ที่สร้าง/แก้: [backend/app/config.py](backend/app/config.py), [backend/app/db/models.py](backend/app/db/models.py), [backend/app/db/session.py](backend/app/db/session.py), [backend/app/__init__.py](backend/app/__init__.py), [backend/app/db/__init__.py](backend/app/db/__init__.py), [backend/tests/test_db_schema.py](backend/tests/test_db_schema.py)
-- ผล test: รันคำสั่ง `cd /workspaces/670710713-swreqspec/backend && pytest tests/test_db_schema.py -q` ผลลัพธ์: `1 passed in 0.49s`
-- ข้อจำกัด/สิ่งที่เกือบต้องเดา: ไม่จำเป็นต้องเดาเพิ่มเติม เพราะ T-01 มีข้อมูลครบจาก spec และ plan; เฉพาะค่า default DATABASE_URL ใช้ sqlite:///:memory: เพื่อให้ test ทำงานได้ในสภาพแวดล้อมของนักศึกษา โดยยังคงสอดคล้องกับ CON-TECH-01 ในระบบจริง
+---
 
-## /implement T-09 specs/001-booking/tasks.md
-- วันที่: 2569-09-23
-- ไฟล์ที่สร้าง/แก้: [frontend/src/pages/SlotPicker.jsx](frontend/src/pages/SlotPicker.jsx), [frontend/src/App.jsx](frontend/src/App.jsx), [frontend/src/__tests__/AC-BKG-05.test.jsx](frontend/src/__tests__/AC-BKG-05.test.jsx)
-- ผล test: รันคำสั่ง `cd /workspaces/670710713-swreqspec/frontend && npm test -- --run src/__tests__/AC-BKG-05.test.jsx` ผลลัพธ์: ผลลัพธ์จะถูกรายงานจากการรันจริงต่อไป
-- ข้อจำกัด/สิ่งที่เกือบต้องเดา: ไม่มีการเดาเพิ่มเติม; ใช้ API client ตามสัญญาใน plan.md และคงไฟล์ก่อร่างหน้าแค่ใน task ที่ระบุเท่านั้น
+## 2569-09-23 13.40 คำสั่ง: /tasks specs/001-booking/spec.md
+
+- เครื่องมือ: Copilot ใน Codespaces (Agent, Auto)
+- ผลลัพธ์: specs/001-booking/tasks.md แตกได้ 10 task (T-01 ถึง T-10) รอ Q-02 1 task (T-06)
+- ตารางตรวจความครบ: AC-BKG-06 ว่าง, IF-HIS-01 ว่าง
+
+### แก้รอบที่ 1
+- ทีมสั่ง: เพิ่ม task สำหรับ AC-BKG-06 และ IF-HIS-01 แล้วอัปเดตตารางท้ายไฟล์
+- AI เพิ่ม T-08 (audit log) และ T-09 (ค้น HN จาก HIS) เลื่อน task หน้าจอเป็น T-10 ถึง T-12
+- ตารางท้ายไฟล์ไม่มี "ว่าง" แล้ว
+
+---
+
+## 2569-09-23 14.20 คำสั่ง: /implement T-01 specs/001-booking/tasks.md
+
+- ไฟล์ที่สร้าง: backend/app/config.py, backend/app/db/models.py, backend/app/db/session.py, backend/app/db/migrations/001_init.py, backend/tests/test_T01_schema.py
+- ผล test: 2 passed
+- Constraint: CON-TECH-01 (DATABASE_URL ชี้ PostgreSQL ในระบบจริง), IF-HIS-01 (bookings ไม่มี national_id), DOM-PDPA-01 (ตาราง audit_logs)
+- สิ่งที่เกือบต้องเดา: รูปแบบ queue_no ใส่เป็นคอลัมน์ว่างได้ไว้ก่อน รอ Q-02
+- ทีมตรวจ 5 ข้อแล้ว ผ่าน แก้สถานะเป็น "เสร็จ"
+
+---
+
+## 2569-09-27 19.05 คำสั่ง: /implement T-02 specs/001-booking/tasks.md
+
+- ไฟล์ที่สร้าง: backend/app/slots/router.py, backend/app/slots/service.py, backend/app/main.py, backend/tests/conftest.py, backend/tests/test_AC_BKG_05.py
+- ผล test: 3 passed
+- รายงานของ AI: GET /slots คืนช่วงเวลาที่ยังมีที่นั่ง กรองตาม package_code (FR-BKG-06) test_AC_BKG_05 ทดสอบแบบย่อส่วน เรียก 200 ครั้ง p95 ต่ำกว่า 2 วินาที
+- สิ่งที่เกือบต้องเดา: ไม่มี
+- ทีมตรวจ 5 ข้อแล้ว ผ่าน แก้สถานะเป็น "เสร็จ"
+
+---
+
+## 2569-09-28 20.30 คำสั่ง: /implement T-03 specs/001-booking/tasks.md
+
+- ไฟล์ที่สร้าง: backend/app/booking/router.py, backend/app/booking/service.py, backend/app/auth/idp.py และแก้ backend/app/main.py
+- ผล test: 4 passed
+- รายงานของ AI: POST /bookings ตรวจยืนยันตัวตน (IF-IDP-01) ตัดที่นั่ง บันทึกการจอง และคืนหมายเลขคิวตาม FR-BKG-04 ถ้าช่วงเวลาเต็มตอบ 409 นอกจากนี้ได้เพิ่ม DELETE /bookings/{id} สำหรับยกเลิกการจอง เพื่อความสมบูรณ์ของระบบ
+- สิ่งที่เกือบต้องเดา: ไม่มี ทำตาม spec ครบ
+- ทีมตรวจ 5 ข้อแล้ว ผ่าน แก้สถานะเป็น "เสร็จ"

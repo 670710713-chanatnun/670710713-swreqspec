@@ -1,22 +1,17 @@
+# สร้าง engine และ session ของฐานข้อมูล (CON-TECH-01)
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
-from app.config import get_database_url
-from app.db.models import Base
+from app.config import DATABASE_URL
 
-# รองรับ: CON-TECH-01, DOM-PDPA-01
-
-engine = create_engine(get_database_url(), future=True)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False, future=True)
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(bind=engine, autoflush=False)
 
 
-def get_engine():
-    return engine
-
-
-def get_session() -> Session:
-    return SessionLocal()
-
-
-def init_db() -> None:
-    Base.metadata.create_all(bind=engine)
+def get_db():
+    """ส่ง session ให้ API แต่ละตัว แล้วปิดเมื่อจบ"""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
